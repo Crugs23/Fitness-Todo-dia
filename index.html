@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness todo dia</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><link href="/src/style.css" rel="stylesheet">
+</head>
+<body id="removeModal" class="bg-slate-900  max-w-1280 flex justify-center flex-col items-center text-white  ">
+    <header class="flex justify-center">
+        <h2 class="text-xl text-white">Fitness Todo Dia</h2>
+    </header>
+
+    <div class="flex flex-col items-center mt-5">
+        <h2 class="text-4xl font-bold text-white">Meus <span class="text-rose-400">Exercícios</span></h2>
+        <p class="text-white mt-1">Monte seu treino personalizado com vídeos e imagens <br> demonstrativos</p>
+    </div>
+
+    <div class="flex items-center flex-col">
+        <button id="btnAbrirModal" class="bg-rose-400 p-2 px-5 mt-12 transition-all transition-discrete hover:scale-110 rounded-md fill-rose-400 drop-shadow-rose-400 drop-shadow-xl/50 font-semibold">Adicionar Exercício</button>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="bg-slate-950 h-full flex justify-center visible">
+      <div id="modal" class="p-4 invisible justify-center absolute top-50 bg-slate-800 w-md h-100 overflow-y-auto overflow-x-hidden p-2 shadow-xl/100 border-slate-600 border-2 rounded-md z-40 opacity-100 transition-all transition-discrete duration-500 scale-100">
+        <div class="">
+          <h1 class="font-semibold text-2xl">Novo Treino</h1>
+        </div>
+
+        <div class="mt-6 ">
+           <p class="font-semibold my-2 text-white">Titulo do treino</p>
+           <input type="text" name="" id="nameTitulo" placeholder="Ex: Peito e triceps" class="p-1 px-2 text-white/100 font-bold bg-slate-900 w-90% rounded-md focus:outline-rose-400" required> 
+        </div>
+        
+        <div id="containerExer" class="mt-8 bg-gray-900 p-2 rounded-lg w-auto overflow-y-auto  border border-gray-500">
+
+          <div id="modalExerc" class="">
+            <p>Exercício 1</p>
+          <div class="my-4 pl-2 gap-8">
+            <div class="mb-2">
+              <input type="text" placeholder="Nome do Exercício" id="nameExercicio" name=""  class="bg-slate-700  rounded-lg pl-2  w-90 h-8 border-1 border-gray-500 font-bold" required>
+            </div>
+            
+            <div class="flex gap-6">
+              <div class="flex gap-2">
+             <input type="text" name="" id="serie" placeholder="Série" class="bg-slate-700  rounded-lg pl-2  w-42 h-8 border-1 border-gray-500 font-bold" required>
+            </div>
+
+           <div class="flex gap-2 ">
+            <input type="text" name="" id="reps" class="bg-slate-700 border-1 border-gray-500  rounded-lg w-42 pl-2   font-bold" placeholder="Reps" required>
+           </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="flex gap-20 mt-6">
+      <div class="">
+        <button id="addExercicio" class="rounded-lg bg-gray-900 w-36 h-10 cursor-pointer flex text-center justify-center items-center font-semibold">Adicionar Exercício</button>
+      </div>
+
+      <div class="ml-14">
+        <button type="submit"  id="btnAddItem" class="rounded-lg bg-green-500 w-36 h-10 cursor-pointer flex text-center justify-center items-center">
+          <span class="text-gray-100 font-semibold"> Enviar </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+    <div id="container" class="bg-slate-900 grid sm:grid-cols-2 justify-center min-h-128 max-h-screen ">
+
+
+    </div>
+
+    
+    <script src="index.js"></script>
+</body>
+</html>
