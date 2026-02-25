@@ -8,37 +8,40 @@ const addModal = document.getElementById('modalExerc')
 const containerExer = document.getElementById('containerExer')
 
 function abriModal() {
-    Modal.classList.toggle("visible")
-    Modal.classList.toggle("opacity-100")
-    Modal.classList.toggle("scale-100")
+  Modal.classList.toggle("visible")
+  Modal.classList.toggle("opacity-100")
+  Modal.classList.toggle("scale-100")
 }
 
 function fecharModal() {
-    Modal.classList.toggle("visible")
-    Modal.classList.toggle("opacity-0")
-    Modal.classList.toggle("scale-50")
+  Modal.classList.toggle("visible")
+  Modal.classList.toggle("opacity-0")
+  Modal.classList.toggle("scale-50")
 }
 
 let contador = 1
 
- function addExercicio() {
+function addExercicio() {
   contador++
   const formEx = `
   <div id="modalExerc-${contador}" class="">
             <p>Exercício ${contador}</p>
           <div class="my-4 pl-2 gap-8">
             <div class="mb-2">
-              <input type="text" placeholder="Nome do Exercício" id="nameExercicio-${contador}" name=""  class="bg-slate-700  rounded-lg pl-2  w-90 h-8 border-1 border-gray-500 font-bold" required>
+              <input type="text" placeholder="Nome do Exercício" id="nameExercicio-${contador}" name=""  class="bg-slate-700  rounded-lg pl-2 w-80 md:w-90 h-8 border-1 border-gray-500 font-bold" required>
             </div>
             
-            <div class="flex gap-6">
-              <div class="flex gap-2">
-             <input type="text" name="" id="serie-${contador}" placeholder="Série" class="bg-slate-700  rounded-lg pl-2  w-42 h-8 border-1 border-gray-500 font-bold" required>
+          <div class="flex gap-4">
+            <div class="flex gap-2">
+             <input type="text" name="" id="serie-${contador}" placeholder="Série" class="bg-slate-700 border-1 border-gray-500  rounded-lg w-38 md:w-42 h-8 pl-2 mt-2 items-center sm:items-left font-bold" required>
             </div>
 
            <div class="flex gap-2 ">
-            <input type="text" name="" id="reps-${contador}" class="bg-slate-700 border-1 border-gray-500  rounded-lg w-42 pl-2   font-bold" placeholder="Reps" required>
+            <input type="text" name="" id="reps-${contador}" class="bg-slate-700 border-1 border-gray-500  rounded-lg w-38 md:w-42 h-8 pl-2 mt-2 items-center sm:items-left font-bold" placeholder="Reps" required>
            </div>
+          </div>
+          <div class="">
+           <input type="text" name="" id="kg" class="bg-slate-700 border-1 border-gray-500  rounded-lg w-38 md:w-42 h-8 pl-2 mt-2 items-center sm:items-left font-bold" placeholder="kg" required>
           </div>
         </div>
         
@@ -47,63 +50,91 @@ let contador = 1
   containerExer.insertAdjacentHTML('beforeend', formEx)
 }
 
-function criarDiv() {
-const serie = document.getElementById('serie')
-const reps = document.getElementById('reps')
-const nameTitulo = document.getElementById('nameTitulo')
-const container = document.getElementById('container')
-const nameExercicio = document.getElementById('nameExercicio')
+window.onload = function () {
+  const dados = localStorage.getItem('meusTreinos')
+  if (dados) {
+    const treinos = JSON.parse(dados)
+    treinos.forEach((treino, index) => renderizadorCard(treino, index));
+  }
+}
 
-const exercicio = String(nameExercicio.value) 
-const titulo = String(nameTitulo.value)
-const serieQuantidade = Number(serie.value)
-const repsQuantidade = Number(reps.value)
 
- let card = `
-    <div class="border-stone-500 border-2 p-4 shadow-lg/100 w-78 h-72 m-2 mt-10 rounded-3xl scale-100 hover:scale-110 transition-all transition-discrete">
-        
-        <div class="p-2 flex-col items-center justify-start gap-6 ">
-         <div class="">
-           <h1 class="text-xl"><strong>${titulo}</strong></h1>
-         </div>
-         <div class="flex gap-2">
-           <div class="flex flex-col items-center ">
-              <p class="" id"duracao">Duração</p>
-              <p class="font-bold">57min</p>
-            </div>
-            <div class="p-1 flex flex-col  items-center">
-                <p class="">Volume</p>
-                <p class="font-bold">1.000kg</p>
-            </div>
-          </div>
-         </div>
-            
-         <div class="mt-2" id="lista-exercicios-no-card">
+function renderizadorCard(dadosTreinos, index) {
+  const container = document.getElementById('container')
 
-            </div>
-  `;
-  
-
-  // Adiciona o HTML ao final do container
-  container.insertAdjacentHTML('beforeend', card);
-
-  const listaNoCard = container.lastElementChild.querySelector('#lista-exercicios-no-card')
-
-  for (let i = 0; i <= contador; i++){
-    const exNome = document.getElementById(`nameExercicio-${i}`)?.value|| document.getElementById(`nameExercicio`)?.value
-    const exSerie = document.getElementById(`serie-${i}`)?.value || document.getElementById(`serie`)?.value;
-    const exReps = document.getElementById(`reps-${i}`)?.value || document.getElementById(`reps`)?.value;
-
-    if(exNome) {
-      listaNoCard.insertAdjacentHTML('beforeend', `
-        <div class="flex gap-2 border-b border-gray-700 py-1">
-          <span class="text-rose-400 font-bold">${exSerie}x${exReps}</span>
-          <span>${exNome}</span>
+  let exerciciosHTML = ""
+  dadosTreinos.exercicios.forEach(ex => {
+    exerciciosHTML += `
+    <div class="flex gap-2 border-b border-gray-700 py-1">
+          <span class="text-rose-400 font-bold">${ex.serie}x${ex.reps}</span>
+          <span>${ex.nome}</span>
+          <span>${ex.kg}Kg</span>
         </div>
-        `)
+    `
+  })
+
+  const card = `
+  <div class="border-stone-500 border-2 p-4 shadow-lg w-78 h-50 h-max-70 m-2 mt-10 rounded-3xl bg-slate-800 text-white">
+
+  <button class="rounded-lg bg-rose-800 w-36 h-10 cursor-pointer flex text-center justify-center items-center" onclick="apagarTreino(${index})">Deletar</button>
+
+        <div class="p-2 flex items-center justify-between gap-6 ">
+           <h1 class="text-xl"><strong>${dadosTreinos.titulo}</strong></h1>
+           <p class="text-xs text-gray-400">${dadosTreinos.data}</p>
+        </div>
+        <div class="mt-2">${exerciciosHTML}</div>
+  `
+  container.insertAdjacentHTML('beforeend', card)
+}
+
+function apagarTreino(index) {
+  let treinosSalvos = JSON.parse(localStorage.getItem('meusTreinos')) || []
+  // Remove apenas o item daquela posição do array
+  treinosSalvos.splice(index, 1)
+  // Salva a nova lista (sem o que você apagou) de volta no storage
+  localStorage.setItem('meusTreinos', JSON.stringify(treinosSalvos),
+    // Recarrega a página para atualizar a tela
+    location.reload()
+  )
+}
+
+function criarDiv() {
+  const titulo = document.getElementById('nameTitulo').value
+  const date = new Date()
+  const dataFormatada = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+
+  const novoTreino = {
+    titulo: titulo,
+    data: dataFormatada,
+    exercicios: []
+  }
+
+  const fixoNome = document.getElementById('nameExercicio').value;
+  if (fixoNome) {
+    novoTreino.exercicios.push({
+      nome: fixoNome,
+      serie: document.getElementById('serie').value,
+      reps: document.getElementById('reps').value,
+      kg: document.getElementById('kg').value
+    });
+  }
+  for (let i = 1; i <= contador; i++) {
+    const exNome = document.getElementById(`nameExercicio-${i}`)?.value;
+    if (exNome) {
+      novoTreino.exercicios.push({
+        nome: exNome,
+        serie: document.getElementById(`serie-${i}`).value,
+        reps: document.getElementById(`reps-${i}`).value,
+        kg: document.getElementById(`kg-${i}`).value
+      });
     }
   }
 
+  renderizadorCard(novoTreino)
+
+  let treinosSalvos = JSON.parse(localStorage.getItem('meusTreinos')) || []
+  treinosSalvos.push(novoTreino)
+  localStorage.setItem('meusTreinos', JSON.stringify(treinosSalvos))
 }
 
 btnAdd.addEventListener('click', criarDiv);
