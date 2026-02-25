@@ -41,7 +41,7 @@ function addExercicio() {
            </div>
           </div>
           <div class="">
-           <input type="text" name="" id="kg" class="bg-slate-700 border-1 border-gray-500  rounded-lg w-38 md:w-42 h-8 pl-2 mt-2 items-center sm:items-left font-bold" placeholder="kg" required>
+           <input type="text" name="" id="kg-${contador}" class="bg-slate-700 border-1 border-gray-500  rounded-lg w-38 md:w-42 h-8 pl-2 mt-2 items-center sm:items-left font-bold" placeholder="kg" required>
           </div>
         </div>
         
@@ -74,7 +74,7 @@ function renderizadorCard(dadosTreinos, index) {
   })
 
   const card = `
-  <div class="border-stone-500 border-2 p-4 shadow-lg w-78 h-50 h-max-70 m-2 mt-10 rounded-3xl bg-slate-800 text-white">
+  <div class="border-stone-500 border-2 p-4 shadow-lg w-78 min-h-50 md:max-h-screen m-2 mt-10 rounded-3xl bg-slate-800 text-white">
 
   <button class="rounded-lg bg-rose-800 w-36 h-10 cursor-pointer flex text-center justify-center items-center" onclick="apagarTreino(${index})">Deletar</button>
 
@@ -83,6 +83,7 @@ function renderizadorCard(dadosTreinos, index) {
            <p class="text-xs text-gray-400">${dadosTreinos.data}</p>
         </div>
         <div class="mt-2">${exerciciosHTML}</div>
+    </div>
   `
   container.insertAdjacentHTML('beforeend', card)
 }
@@ -113,19 +114,19 @@ function criarDiv() {
   if (fixoNome) {
     novoTreino.exercicios.push({
       nome: fixoNome,
-      serie: document.getElementById('serie').value,
-      reps: document.getElementById('reps').value,
-      kg: document.getElementById('kg').value
+      serie: document.getElementById('serie')?.value,
+      reps: document.getElementById('reps')?.value,
+      kg: document.getElementById('kg')?.value
     });
   }
-  for (let i = 1; i <= contador; i++) {
+  for (let i = 0; i <= contador; i++) {
     const exNome = document.getElementById(`nameExercicio-${i}`)?.value;
     if (exNome) {
       novoTreino.exercicios.push({
         nome: exNome,
-        serie: document.getElementById(`serie-${i}`).value,
-        reps: document.getElementById(`reps-${i}`).value,
-        kg: document.getElementById(`kg-${i}`).value
+        serie: document.getElementById(`serie-${i}`)?.value,
+        reps: document.getElementById(`reps-${i}`)?.value,
+        kg: document.getElementById(`kg-${i}`)?.value
       });
     }
   }
