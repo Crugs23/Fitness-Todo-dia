@@ -5,6 +5,7 @@ const btnAdd = document.querySelector("#btnAddItem")
 const Ficha = document.querySelector("#fichaTreino")
 const addExer = document.getElementById('addExercicio')
 const addModal = document.getElementById('modalExerc')
+const esconderModal = document.querySelector('#fecharModal')
 const containerExer = document.getElementById('containerExer')
 
 function abriModal() {
@@ -141,4 +142,4 @@ function criarDiv() {
 btnAdd.addEventListener('click', criarDiv);
 addExer.addEventListener('click', addExercicio)
 btnAbrirModal.addEventListener("click", abriModal)
-btnAdd.addEventListener("click", fecharModal)
+btnAdd,esconderModal.addEventListener("click", fecharModal)
