@@ -75,7 +75,7 @@ function renderizadorCard(dadosTreinos, index) {
   })
 
   const card = `
-  <div class="border-stone-500 border-2 p-4 shadow-lg w-78 min-h-50 md:max-h-screen m-2 mt-10 rounded-3xl bg-slate-800 text-white">
+  <div class="border-stone-500 border-2 p-4 shadow-lg w-78 min-h-auto md:max-h-screen m-2 mt-10 rounded-3xl bg-slate-800 text-white">
 
   <button class="rounded-lg bg-rose-800 w-36 h-10 cursor-pointer flex text-center justify-center items-center" onclick="apagarTreino(${index})">Deletar</button>
 
@@ -142,4 +142,5 @@ function criarDiv() {
 btnAdd.addEventListener('click', criarDiv);
 addExer.addEventListener('click', addExercicio)
 btnAbrirModal.addEventListener("click", abriModal)
-btnAdd,esconderModal.addEventListener("click", fecharModal)
+btnAdd.addEventListener("click", fecharModal)
+esconderModal.addEventListener("click", fecharModal) 
